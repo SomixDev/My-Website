@@ -3,483 +3,141 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Builder Portfolio - Fully Fluid & Dynamic</title>
+<title>Roblox Interior Portfolio</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
   :root {
-    --bg: #fafaf8;
-    --ink: #1c1c1a;
-    --ink-soft: #6f6f6a;
-    --line: #e6e5e0;
-    --accent: #4a7ab5;
-    --accent-soft: #eaf1f8;
-    --accent2: #e0a95c;
-    --accent2-soft: #fdf1e0;
-    --open: #2f8a4e;
-    --open-bg: #eaf6ee;
-    --closed: #b23b3b;
-    --closed-bg: #fbeaea;
-
-    /* Dynamic Fluid Spacing Scale */
-    --space-xs: clamp(0.5rem, 1vw, 0.75rem);
-    --space-sm: clamp(0.75rem, 1.5vw, 1.25rem);
-    --space-md: clamp(1.25rem, 3vw, 2.25rem);
-    --space-lg: clamp(2rem, 5vw, 4rem);
-
-    /* Dynamic Fluid Font Scale */
-    --text-sm: clamp(0.75rem, 0.7rem + 0.25vw, 0.875rem);
-    --text-base: clamp(0.875rem, 0.8rem + 0.35vw, 1.05rem);
-    --text-lg: clamp(1.1rem, 1rem + 0.5vw, 1.35rem);
-    --text-xl: clamp(1.5rem, 1.2rem + 1vw, 2rem);
-    --text-hero: clamp(2.1rem, 1.5rem + 2.5vw, 3.5rem);
+    --bg: #ffffff;
+    --ink: #111111;
+    --ink-soft: #4a4a4a;
+    --line: #e2e2e0;
+    --accent-soft: #fef3c7;
+    --open-bg: #dcfce7;
+    --open: #15803d;
   }
-
-  *, *::before, *::after {
-    box-sizing: border-box; 
-    margin: 0; 
-    padding: 0;
-  }
-
-  html { scroll-behavior: smooth; }
-
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
   body {
     background: var(--bg);
     color: var(--ink);
-    font-family: 'Inter', sans-serif;
-    font-size: var(--text-base);
-    line-height: 1.6;
-    -webkit-font-smoothing: antialiased;
-    overflow-x: hidden;
+    font-family: 'Inter', system-ui, sans-serif;
+    line-height: 1.5;
+    font-size: clamp(0.95rem, 0.9rem + 0.3vw, 1.1rem);
   }
-
-  /* Fully Fluid Container */
-  .wrap {
-    width: min(92%, 1200px);
-    margin-inline: auto;
-    padding-inline: var(--space-sm);
-  }
-
+  /* Fluid Centered Wrapper */
+  .wrap { width: min(92%, 1100px); margin: 0 auto; padding: 1.5rem 1rem; }
   a { color: inherit; text-decoration: none; }
-  button { font-family: inherit; border: none; cursor: pointer; background: none; }
+  
+  /* Navigation */
+  header { padding-bottom: 2rem; }
+  nav { display: flex; justify-content: space-between; align-items: center; }
+  .brand { font-weight: 700; font-size: 1.1rem; }
+  .navlinks { display: flex; gap: 1.5rem; font-size: 0.9rem; font-weight: 500; color: var(--ink-soft); }
+  .navlinks a:hover, .navlinks a.active { color: var(--ink); }
 
-  /* ---------- NAV ---------- */
-  header { padding: var(--space-md) 0; }
-  nav { display: flex; align-items: center; justify-content: space-between; }
-  .brand { font-weight: 600; font-size: var(--text-base); letter-spacing: 0.3px; }
-  .brand .letter { display: inline-block; animation: letterWave 2.4s ease-in-out infinite; }
-  .brand .letter:nth-child(1){ animation-delay: 0s; }
-  .brand .letter:nth-child(2){ animation-delay: .16s; }
-  .brand .letter:nth-child(3){ animation-delay: .32s; }
-  .brand .letter:nth-child(4){ animation-delay: .48s; }
-  .brand .letter:nth-child(5){ animation-delay: .64s; }
-
-  @keyframes letterWave {
-    0%, 100%{ transform: translateY(0); color: var(--ink); }
-    6%{ transform: translateY(-5px); color: var(--accent); }
-    12%{ transform: translateY(0); color: var(--ink); }
-  }
-
-  .navlinks { display: flex; gap: var(--space-md); font-size: var(--text-sm); color: var(--ink-soft); }
-  .navlinks a { position: relative; padding-bottom: 2px; transition: color .2s ease; cursor: pointer; }
-  .navlinks a::after {
-    content: ''; position: absolute; left: 0; bottom: -4px; width: 100%; height: 1px;
-    background: var(--accent); transform: scaleX(0); transform-origin: right;
-    transition: transform .25s ease;
-  }
-  .navlinks a:hover { color: var(--ink); }
-  .navlinks a:hover::after { transform: scaleX(1); transform-origin: left; }
-  .navlinks a.active-link { color: var(--ink); }
-  .navlinks a.active-link::after { transform: scaleX(1); transform-origin: left; }
-
-  .nav-toggle { display: none; font-size: 1.5rem; color: var(--ink); padding: 4px; }
-  .mobile-menu { display: none; flex-direction: column; gap: 4px; padding-bottom: var(--space-sm); }
-  .mobile-menu.open { display: flex; }
-  .mobile-menu a { font-size: var(--text-base); color: var(--ink-soft); padding: 0.6rem 0; border-top: 1px solid var(--line); cursor: pointer; }
-  .mobile-menu a:hover, .mobile-menu a.active-link { color: var(--ink); }
-
-  /* ---------- BADGE ---------- */
+  /* Hero Section */
   .badge {
-    display: inline-flex; align-items: center; gap: 0.5rem;
-    font-size: var(--text-sm); font-weight: 500; padding: 0.4rem 0.8rem; border-radius: 20px;
-    margin-bottom: var(--space-xs);
-  }
-  .badge .dot { width: 7px; height: 7px; border-radius: 50%; background: currentColor; }
-  .badge.open { background: var(--open-bg); color: var(--open); }
-  .badge.open .dot { animation: pulseDot 2s infinite; }
-  .badge.closed { background: var(--closed-bg); color: var(--closed); }
-
-  @keyframes pulseDot {
-    0%{ box-shadow: 0 0 0 0 rgba(47,138,78,.5); }
-    70%{ box-shadow: 0 0 0 7px rgba(47,138,78,0); }
-    100%{ box-shadow: 0 0 0 0 rgba(47,138,78,0); }
-  }
-
-  /* ---------- HERO ---------- */
-  .hero { padding: var(--space-sm) 0 var(--space-lg); position: relative; }
-  .blob { position: absolute; border-radius: 50%; filter: blur(70px); opacity: .35; z-index: -1; pointer-events: none; }
-  .blob1 { width: clamp(12rem, 30vw, 22rem); height: clamp(12rem, 30vw, 22rem); background: var(--accent); top: -20%; right: -10%; }
-  .blob2 { width: clamp(10rem, 20vw, 16rem); height: clamp(10rem, 20vw, 16rem); background: var(--accent2); top: 30%; left: -10%; }
-
-  @keyframes fadeInUp { from{ opacity: 0; transform: translateY(16px); } to{ opacity: 1; transform: translateY(0); } }
-  .hero .badge { animation: fadeInUp .6s ease both; }
-  .hero h1 { animation: fadeInUp .6s ease .08s both; }
-  .hero p.sub { animation: fadeInUp .6s ease .16s both; }
-  .hero .tags { animation: fadeInUp .6s ease .24s both; }
-  .hero .cta-row { animation: fadeInUp .6s ease .32s both; }
-
-  .hero h1 {
-    font-weight: 700; font-size: var(--text-hero); line-height: 1.15;
-    max-width: 20ch; letter-spacing: -0.5px;
-  }
-  .hero p.sub { max-width: 45ch; margin-top: var(--space-xs); font-size: var(--text-base); color: var(--ink-soft); }
-  .tags { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: var(--space-sm); }
-  .tag {
-    font-size: var(--text-sm); color: var(--accent); background: var(--accent-soft); padding: 0.35rem 0.75rem; border-radius: 20px;
-    transition: transform .15s ease, background .15s ease;
-  }
-  .tag:hover { transform: translateY(-2px); background: #dcebf7; }
-  .cta-row { margin-top: var(--space-md); }
-  .btn-primary {
-    font-size: var(--text-sm); font-weight: 600;
-    background: var(--ink); color: #fff; padding: 0.75rem 1.4rem;
-    border-radius: 6px; display: inline-block;
-    transition: opacity .15s ease, transform .15s ease;
-  }
-  .btn-primary:hover { opacity: .85; transform: translateY(-1px); }
-  .btn-primary:active { transform: scale(.96); }
-
-  /* ---------- SECTIONS & CONTAINER QUERIES ---------- */
-  section { 
-    padding: var(--space-lg) 0; 
-    border-top: 1px solid var(--line); 
-    container-type: inline-size;
-  }
-  .section-head { margin-bottom: var(--space-md); }
-  .eyebrow { font-size: var(--text-sm); color: var(--ink-soft); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 0.25rem; }
-  .section-head h2 { font-weight: 700; font-size: var(--text-xl); }
-  .status-pill {
     display: inline-flex; align-items: center; gap: 6px;
-    font-size: var(--text-sm); font-weight: 600; padding: 0.3rem 0.75rem; border-radius: 20px; margin-top: 0.6rem;
+    font-size: 0.85rem; font-weight: 600; padding: 0.35rem 0.8rem;
+    border-radius: 20px; background: var(--open-bg); color: var(--open);
+    margin-bottom: 1rem;
   }
-  .status-pill .dot { width: 6px; height: 6px; border-radius: 50%; background: currentColor; }
-  .status-pill.progress { background: var(--accent2-soft); color: #b8792b; }
-  .status-pill.done { background: var(--open-bg); color: var(--open); }
+  .badge .dot { width: 6px; height: 6px; border-radius: 50%; background: currentColor; }
+  h1 { font-size: clamp(2.2rem, 1.8rem + 2.5vw, 3.6rem); font-weight: 700; line-height: 1.15; max-width: 20ch; letter-spacing: -0.5px; }
+  p.sub { color: var(--ink-soft); max-width: 50ch; margin: 0.75rem 0 1.25rem; }
+  .tags { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 1.5rem; }
+  .tag { font-size: 0.85rem; font-weight: 500; background: #f1f1ef; padding: 0.3rem 0.75rem; border-radius: 6px; }
+  .btn-primary { font-size: 0.9rem; font-weight: 600; background: var(--ink); color: #fff; padding: 0.75rem 1.5rem; border-radius: 6px; display: inline-block; }
 
-  /* ---------- SCROLL REVEAL ---------- */
-  .reveal { opacity: 0; transform: translateY(22px); transition: opacity .6s ease, transform .6s cubic-bezier(.16,.84,.44,1); }
-  .reveal.in-view { opacity: 1; transform: translateY(0); }
+  /* Section Common */
+  section { padding: 3rem 0; border-top: 1px solid var(--line); }
+  .eyebrow { font-size: 0.8rem; font-weight: 600; color: var(--ink-soft); text-transform: uppercase; letter-spacing: 0.5px; }
+  h2 { font-size: clamp(1.4rem, 1.2rem + 1vw, 2rem); font-weight: 700; margin-bottom: 0.25rem; }
+  .status-pill { display: inline-block; font-size: 0.8rem; font-weight: 600; padding: 0.25rem 0.75rem; border-radius: 20px; background: var(--accent-soft); color: #854d0e; margin-bottom: 1.5rem; }
 
-  /* ---------- PROJECT & IMAGE STYLES ---------- */
-  .project-image {
-    aspect-ratio: 16/9; width: 100%; border-radius: 8px; overflow: hidden;
-    background: var(--accent-soft);
-    display: flex; align-items: center; justify-content: center;
-    margin-bottom: var(--space-sm); cursor: zoom-in;
-    transition: opacity .2s ease, transform .2s ease, box-shadow .2s ease;
-  }
-  .project-image:hover { opacity: .94; transform: translateY(-3px); box-shadow: 0 10px 24px rgba(20,20,18,0.08); }
-  .project-image span { font-size: var(--text-sm); color: var(--ink-soft); text-align: center; padding: 0 1.5rem; }
-  .project-image img { width: 100%; height: 100%; object-fit: cover; display: block; }
-  .project p { color: var(--ink-soft); font-size: var(--text-base); max-width: 45ch; }
-  .meta-row { display: flex; flex-wrap: wrap; gap: var(--space-md); margin-top: var(--space-sm); }
-  .meta-row div { font-size: var(--text-sm); }
-  .meta-row label { display: block; color: var(--ink-soft); font-size: var(--text-sm); text-transform: uppercase; letter-spacing: .5px; margin-bottom: 3px; }
-  .meta-row strong { font-weight: 600; }
-
-  /* Responsive Grid Components */
+  /* Photo Grid */
   .photo-grid-8 {
-    display: grid; 
-    grid-template-columns: repeat(auto-fill, minmax(min(100%, 180px), 1fr)); 
-    gap: var(--space-sm); 
-    margin-bottom: var(--space-sm);
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 220px), 1fr));
+    gap: 1rem; margin-bottom: 1.5rem;
   }
   .photo-item { display: flex; flex-direction: column; gap: 6px; }
-  .photo-item .project-image { aspect-ratio: 4/3; margin-bottom: 0; }
-  .photo-item .project-image span { font-size: var(--text-sm); padding: 0 0.5rem; }
-  .photo-label { font-size: var(--text-sm); font-weight: 600; text-align: center; padding: 3px 0; border-radius: 6px; }
-  .photo-label.no-lighting { color: var(--ink-soft); background: var(--line); }
-  .photo-label.with-lighting { color: var(--accent2); background: var(--accent2-soft); }
+  .project-image { aspect-ratio: 16/10; width: 100%; border-radius: 6px; background: #1a1a1a; display: flex; align-items: center; justify-content: center; color: #888; font-size: 0.85rem; }
+  .project-image img { width: 100%; height: 100%; object-fit: cover; border-radius: 6px; }
+  .photo-label { font-size: 0.75rem; font-weight: 600; text-align: center; padding: 4px 0; border-radius: 4px; }
+  .photo-label.off { color: var(--ink-soft); background: #f1f1ef; }
+  .photo-label.on { color: #854d0e; background: var(--accent-soft); }
 
-  .commission-grid-2, .photo-grid-3, .grid {
-    display: grid; 
-    grid-template-columns: repeat(auto-fill, minmax(min(100%, 260px), 1fr)); 
-    gap: var(--space-sm); 
-    margin-bottom: var(--space-sm);
-  }
-  .commission-grid-2 .project-image, .photo-grid-3 .project-image, .grid .project-image { margin-bottom: 0; }
-  .grid .project-image { aspect-ratio: 4/3; }
-  .grid .mini-label { margin-top: 0.4rem; }
-  .grid .mini-label strong { display: block; font-size: var(--text-base); font-weight: 600; }
-  .grid .mini-label span { font-size: var(--text-sm); color: var(--accent); }
+  /* Meta Info Row */
+  .desc { color: var(--ink-soft); max-width: 65ch; margin-bottom: 1.5rem; }
+  .meta-row { display: flex; flex-wrap: wrap; gap: 2rem; border-top: 1px solid var(--line); padding-top: 1rem; }
+  .meta-row div { font-size: 0.85rem; }
+  .meta-row label { display: block; color: var(--ink-soft); font-size: 0.7rem; text-transform: uppercase; margin-bottom: 2px; }
+  .meta-row strong { font-weight: 600; }
 
-  /* ---------- CONTACT & FOOTER ---------- */
-  .contact p { color: var(--ink-soft); max-width: 40ch; margin-bottom: var(--space-md); font-size: var(--text-base); }
-  footer { padding: var(--space-md) 0 var(--space-lg); font-size: var(--text-sm); color: var(--ink-soft); border-top: 1px solid var(--line); }
-
-  /* ---------- LIGHTBOX ---------- */
-  .modal-overlay {
-    position: fixed; inset: 0; background: rgba(15, 15, 14, 0.82);
-    backdrop-filter: blur(8px); display: flex; align-items: center; justify-content: center;
-    z-index: 1000; opacity: 0; pointer-events: none; transition: opacity .25s ease;
-  }
-  .modal-overlay.open { opacity: 1; pointer-events: auto; }
-  .modal-content {
-    max-width: 90vw; max-height: 85vh; background: var(--bg); border-radius: 12px;
-    padding: var(--space-sm); position: relative; display: flex; flex-direction: column;
-    align-items: center; box-shadow: 0 20px 40px rgba(0,0,0,0.3);
-    transform: scale(0.95); transition: transform .25s ease;
-  }
-  .modal-overlay.open .modal-content { transform: scale(1); }
-  .modal-content img { max-width: 100%; max-height: 70vh; border-radius: 6px; object-fit: contain; }
-  .modal-caption { margin-top: var(--space-xs); font-size: var(--text-sm); color: var(--ink-soft); text-align: center; }
-  .modal-close {
-    position: absolute; top: -12px; right: -12px; background: var(--ink); color: #fff;
-    width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center;
-    justify-content: center; font-size: 1.1rem; cursor: pointer; box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-  }
-
-  @media(max-width: 640px) {
-    .navlinks { display: none; }
-    .nav-toggle { display: block; }
-  }
+  footer { padding: 2rem 0; font-size: 0.85rem; color: var(--ink-soft); border-top: 1px solid var(--line); }
 </style>
 </head>
 <body>
 
 <div class="wrap">
-  <!-- HEADER / NAV -->
   <header>
     <nav>
-      <div class="brand">
-        <span class="letter">B</span><span class="letter">U</span><span class="letter">I</span><span class="letter">L</span><span class="letter">D</span>
-      </div>
+      <div class="brand">BUILD</div>
       <div class="navlinks">
-        <a href="#active-build" class="active-link">Active Build</a>
-        <a href="#past-commissions">Commissions</a>
-        <a href="#showcase">Showcase</a>
+        <a href="#active-build" class="active">Active Build</a>
         <a href="#contact">Contact</a>
       </div>
-      <button class="nav-toggle" id="navToggle" aria-label="Toggle Menu">☰</button>
     </nav>
-    <div class="mobile-menu" id="mobileMenu">
-      <a href="#active-build" class="active-link">Active Build</a>
-      <a href="#past-commissions">Commissions</a>
-      <a href="#showcase">Showcase</a>
-      <a href="#contact">Contact</a>
-    </div>
   </header>
 
-  <!-- HERO -->
   <div class="hero">
-    <div class="blob blob1"></div>
-    <div class="blob blob2"></div>
-    <div class="badge open">
-      <span class="dot"></span>
-      Commissions Open
-    </div>
-    <h1>Custom Environment & Model Builder</h1>
-    <p class="sub">Crafting immersive digital spaces, detailed structures, and optimized assets with lighting-focused precision.</p>
+    <div class="badge"><span class="dot"></span> Open for Commissions</div>
+    <h1>I build realistic interiors in Roblox.</h1>
+    <p class="sub">Interiors built to feel real, every room and detail evoke a real space. Currently taking on select commission work.</p>
     <div class="tags">
-      <span class="tag">Environments</span>
+      <span class="tag">Interior Design</span>
       <span class="tag">Lighting</span>
-      <span class="tag">Level Design</span>
-      <span class="tag">Props</span>
     </div>
-    <div class="cta-row">
-      <a href="#contact" class="btn-primary">Get in Touch</a>
-    </div>
+    <a href="#contact" class="btn-primary">Inquire About a Build</a>
   </div>
 
-  <!-- ACTIVE BUILD -->
-  <section id="active-build" class="reveal">
-    <div class="section-head">
-      <div class="eyebrow">Current Focus</div>
-      <h2>Active Project</h2>
-      <div class="status-pill progress">
-        <span class="dot"></span> In Progress
-      </div>
-    </div>
-    <div class="project">
-      <div class="project-image" data-caption="Cyberpunk Alley Alleyway Scene - Work in Progress">
-        <span>[ High Resolution Render Placeholder - Active Build ]</span>
-      </div>
-      <p>A densely detailed urban alleyway featuring custom neon signage, dynamic light propagation, and modular architecture assets.</p>
-      <div class="meta-row">
-        <div><label>Software</label><strong>Blender / Unreal Engine</strong></div>
-        <div><label>Style</label><strong>Cyberpunk / Realism</strong></div>
-        <div><label>Completion</label><strong>75%</strong></div>
-      </div>
-    </div>
-  </section>
+  <section id="active-build">
+    <div class="eyebrow">Active Build</div>
+    <h2>The Abyssal Coaster</h2>
+    <div class="status-pill">In Development</div>
 
-  <!-- LIGHTING COMPARISONS (DYNAMIC GRID) -->
-  <section class="reveal">
-    <div class="section-head">
-      <div class="eyebrow">Lighting & Mood Variations</div>
-      <h2>Atmospheric Tests</h2>
-    </div>
     <div class="photo-grid-8">
-      <div class="photo-item">
-        <div class="project-image" data-caption="Daylight Pass - Raw Geometry"><span>[ Photo 1 ]</span></div>
-        <div class="photo-label no-lighting">Base Mesh</div>
-      </div>
-      <div class="photo-item">
-        <div class="project-image" data-caption="Golden Hour Lighting Pass"><span>[ Photo 2 ]</span></div>
-        <div class="photo-label with-lighting">Golden Hour</div>
-      </div>
-      <div class="photo-item">
-        <div class="project-image" data-caption="Overcast Atmosphere Test"><span>[ Photo 3 ]</span></div>
-        <div class="photo-label no-lighting">Overcast</div>
-      </div>
-      <div class="photo-item">
-        <div class="project-image" data-caption="Night Neon Pass"><span>[ Photo 4 ]</span></div>
-        <div class="photo-label with-lighting">Night Neon</div>
-      </div>
-      <div class="photo-item">
-        <div class="project-image" data-caption="Volumetric Fog Pass"><span>[ Photo 5 ]</span></div>
-        <div class="photo-label with-lighting">Volumetric Fog</div>
-      </div>
-      <div class="photo-item">
-        <div class="project-image" data-caption="Sci-Fi Interior Test"><span>[ Photo 6 ]</span></div>
-        <div class="photo-label no-lighting">Sci-Fi Base</div>
-      </div>
-      <div class="photo-item">
-        <div class="project-image" data-caption="Sci-Fi Mood Lighting"><span>[ Photo 7 ]</span></div>
-        <div class="photo-label with-lighting">Sci-Fi Lit</div>
-      </div>
-      <div class="photo-item">
-        <div class="project-image" data-caption="Final Composition Grade"><span>[ Photo 8 ]</span></div>
-        <div class="photo-label with-lighting">Final Color Grade</div>
-      </div>
+      <div class="photo-item"><div class="project-image"><span>[ Image 1 ]</span></div><div class="photo-label off">No Lighting</div></div>
+      <div class="photo-item"><div class="project-image"><span>[ Image 2 ]</span></div><div class="photo-label off">No Lighting</div></div>
+      <div class="photo-item"><div class="project-image"><span>[ Image 3 ]</span></div><div class="photo-label off">No Lighting</div></div>
+      <div class="photo-item"><div class="project-image"><span>[ Image 4 ]</span></div><div class="photo-label off">No Lighting</div></div>
+      <div class="photo-item"><div class="project-image"><span>[ Image 5 ]</span></div><div class="photo-label on">With Lighting</div></div>
+      <div class="photo-item"><div class="project-image"><span>[ Image 6 ]</span></div><div class="photo-label on">With Lighting</div></div>
+      <div class="photo-item"><div class="project-image"><span>[ Image 7 ]</span></div><div class="photo-label on">With Lighting</div></div>
+      <div class="photo-item"><div class="project-image"><span>[ Image 8 ]</span></div><div class="photo-label on">With Lighting</div></div>
+    </div>
+
+    <p class="desc">A horror/casual game hidden beneath a theme park ride: a secret research facility gone wrong. Something cold and dangerous escaped what the lab created, and now core dynamic missions in development aim for late 2026.</p>
+
+    <div class="meta-row">
+      <div><label>Type</label><strong>Personal Project</strong></div>
+      <div><label>Timeline</label><strong>8 Months</strong></div>
+      <div><label>Contributors</label><strong>2 Individual | Ongoing</strong></div>
+      <div><label>Scope</label><strong>Full Interior + Lighting</strong></div>
     </div>
   </section>
 
-  <!-- PAST COMMISSIONS -->
-  <section id="past-commissions" class="reveal">
-    <div class="section-head">
-      <div class="eyebrow">Portfolio</div>
-      <h2>Past Commissions</h2>
-    </div>
-    <div class="commission-grid-2">
-      <div class="project">
-        <div class="project-image" data-caption="Gothic Cathedral Environment"><span>[ Cathedral Environment ]</span></div>
-        <p style="margin-top:0.8rem;">Gothic-inspired cathedral interior built with modular meshes and baked lightmaps.</p>
-      </div>
-      <div class="project">
-        <div class="project-image" data-caption="Sci-Fi Outpost Environment"><span>[ Sci-Fi Outpost ]</span></div>
-        <p style="margin-top:0.8rem;">Modular space station interior with hard-surface props and procedural PBR materials.</p>
-      </div>
-    </div>
+  <section id="contact">
+    <div class="eyebrow">Contact</div>
+    <h2>Start a Project</h2>
+    <p class="sub">Looking for custom Roblox interior builds or lighting setup? Send over your scope details.</p>
+    <a href="mailto:your-email@domain.com" class="btn-primary">Send Inquiry</a>
   </section>
 
-  <!-- SHOWCASE -->
-  <section id="showcase" class="reveal">
-    <div class="section-head">
-      <div class="eyebrow">Asset Highlights</div>
-      <h2>Showcase Gallery</h2>
-    </div>
-    <div class="grid">
-      <div>
-        <div class="project-image" data-caption="Modular Hard-Surface Prop Kit"><span>[ Prop Kit ]</span></div>
-        <div class="mini-label"><strong>Modular Props</strong><span>Hard-Surface</span></div>
-      </div>
-      <div>
-        <div class="project-image" data-caption="Foliage & Nature Shader Pack"><span>[ Nature Pack ]</span></div>
-        <div class="mini-label"><strong>Foliage Pack</strong><span>Stylized Nature</span></div>
-      </div>
-      <div>
-        <div class="project-image" data-caption="Architectural Trim Sheets"><span>[ Trim Sheets ]</span></div>
-        <div class="mini-label"><strong>Trim Sheets</strong><span>PBR Textures</span></div>
-      </div>
-    </div>
-  </section>
-
-  <!-- CONTACT -->
-  <section id="contact" class="reveal">
-    <div class="section-head">
-      <div class="eyebrow">Collaborate</div>
-      <h2>Get In Touch</h2>
-    </div>
-    <div class="contact">
-      <p>Have a project, environment design, or custom asset request? Feel free to reach out directly through email or social platforms.</p>
-      <a href="mailto:builder@example.com" class="btn-primary">Send Message</a>
-    </div>
-  </section>
-
-  <!-- FOOTER -->
   <footer>
-    <p>&copy; 2026 Builder Portfolio. Built with dynamic responsive design.</p>
+    <p>&copy; 2026 Roblox Interior Portfolio.</p>
   </footer>
 </div>
 
-<!-- LIGHTBOX MODAL -->
-<div class="modal-overlay" id="lightboxModal" aria-hidden="true">
-  <div class="modal-content">
-    <button class="modal-close" id="modalClose" aria-label="Close Lightbox">&times;</button>
-    <img id="modalImg" src="" alt="Expanded View">
-    <div class="modal-caption" id="modalCaption"></div>
-  </div>
-</div>
-
-<script>
-  // Mobile Nav Toggle
-  const navToggle = document.getElementById('navToggle');
-  const mobileMenu = document.getElementById('mobileMenu');
-
-  navToggle.addEventListener('click', () => {
-    mobileMenu.classList.toggle('open');
-  });
-
-  // Scroll Reveal Observer
-  const observerOptions = { threshold: 0.1, rootMargin: "0px 0px -50px 0px" };
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('in-view');
-      }
-    });
-  }, observerOptions);
-
-  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
-
-  // Lightbox Functionality
-  const modal = document.getElementById('lightboxModal');
-  const modalImg = document.getElementById('modalImg');
-  const modalCaption = document.getElementById('modalCaption');
-  const modalClose = document.getElementById('modalClose');
-
-  document.querySelectorAll('.project-image').forEach(item => {
-    item.addEventListener('click', () => {
-      const img = item.querySelector('img');
-      const captionText = item.getAttribute('data-caption') || item.innerText.trim();
-      
-      if (img) {
-        modalImg.src = img.src;
-        modalImg.style.display = 'block';
-      } else {
-        // Fallback for visual placeholders
-        modalImg.style.display = 'none';
-      }
-      
-      modalCaption.textContent = captionText;
-      modal.classList.add('open');
-      modal.setAttribute('aria-hidden', 'false');
-    });
-  });
-
-  const closeModal = () => {
-    modal.classList.remove('open');
-    modal.setAttribute('aria-hidden', 'true');
-  };
-
-  modalClose.addEventListener('click', closeModal);
-  modal.addEventListener('click', (e) => {
-    if (e.target === modal) closeModal();
-  });
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && modal.classList.contains('open')) closeModal();
-  });
-</script>
 </body>
 </html>
